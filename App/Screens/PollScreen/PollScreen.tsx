@@ -3,16 +3,12 @@ import { Pressable, View, Image, Text, FlatList } from 'react-native'
 import PollScreenStyles from './PollScreen.styles'
 import { useNavigation } from '@react-navigation/native'
 import { Separator, ListItemWrapper } from '../../Components'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../Redux/Store'
 
 function PollScreen() {
   const { goBack } = useNavigation()
-  const pollChoices = [
-    'Always',
-    'Most of the time',
-    'About half of the time',
-    'Rarely',
-    'Never'
-  ]
+  const { pollData } = useSelector((state: RootState) => state.poll)
 
   const handleOnClose = () => {
     goBack()
@@ -38,10 +34,10 @@ function PollScreen() {
 
   const PollSection = () => (
     <>
-      {pollChoices.map((item) => (
-        <Pressable key={item}>
+      {pollData?.answers_options?.map(({ slug, text }) => (
+        <Pressable key={slug}>
           <ListItemWrapper styles={PollScreenStyles.PollItemWrapper}>
-            <Text style={PollScreenStyles.PollItemText}>{item}</Text>
+            <Text style={PollScreenStyles.PollItemText}>{text}</Text>
           </ListItemWrapper>
           <Separator value={6} dir="column" />
         </Pressable>

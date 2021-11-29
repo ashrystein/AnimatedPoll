@@ -1,6 +1,9 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { pollReducer } from './Reducers/PollReducer'
 
-const reducers = combineReducers({})
+const reducers = combineReducers({
+  poll: pollReducer
+})
 
 const store = configureStore({
   reducer: reducers

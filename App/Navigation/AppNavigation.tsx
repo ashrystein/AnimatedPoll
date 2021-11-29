@@ -6,6 +6,8 @@ import { HomeScreen, PollScreen, blankScreen } from '../../App/Screens'
 import { colors } from '../Theme'
 import Icon5 from 'react-native-vector-icons/dist/FontAwesome5'
 import routes from './Routes'
+import { Provider } from 'react-redux'
+import store from '../Redux/Store'
 
 const BottomTab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -87,9 +89,11 @@ const RootStack = () => (
 
 const AppNavigation = () => {
   return (
-    <NavigationContainer>
-      <RootStack />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </Provider>
   )
 }
 

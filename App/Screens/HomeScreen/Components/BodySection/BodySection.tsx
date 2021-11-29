@@ -1,14 +1,21 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 import { View, FlatList, Text, Pressable, Image } from 'react-native'
 import BodySectionStyles from './BodySection.styles'
 import { Separator, ListItemWrapper } from '../../../../Components'
 import TipsItems from './TipsItems.json'
 import { useNavigation } from '@react-navigation/native'
 import routes from '../../../../Navigation/Routes'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../../../Redux/Store'
 
 const BodySection = () => {
-  const [showNotice, setShowNotice] = useState<boolean>(true)
+  const [showNotice, setShowNotice] = useState<boolean>(false)
   const { navigate } = useNavigation()
+  const { pollData } = useSelector((state: RootState) => state.poll)
+
+  useEffect(() => {
+    pollData && setShowNotice(true)
+  }, [pollData])
 
   const handleOnNoticePress = () => {
     navigate(routes.PollScreen)
