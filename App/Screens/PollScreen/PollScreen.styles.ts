@@ -18,19 +18,21 @@ export default StyleSheet.create({
     fontSize: fonts.large,
     fontWeight: '700',
     lineHeight: 36,
-    color: colors.orca
+    color: colors.orca,
+    marginRight: 10
   },
-  PollItemWrapper: {
-    paddingLeft: 24,
-    paddingVertical: 10,
+  pollItemWrapper: {
+    height: 48,
     borderRadius: 99999,
     justifyContent: 'center'
   },
-  PollItemText: {
+  pollItemText: {
     fontSize: fonts.secondMedium,
     fontWeight: '400',
     lineHeight: 28,
-    color: colors.orca
+    color: colors.orca,
+    position: 'absolute',
+    left: 24
   },
   responsesWrapper: {
     alignItems: 'center'
@@ -43,5 +45,8 @@ export default StyleSheet.create({
   },
   noAnswerText: {
     textDecorationLine: 'underline'
+  },
+  pollPercentageItemWrapper: {
+    width: 30
   }
 })

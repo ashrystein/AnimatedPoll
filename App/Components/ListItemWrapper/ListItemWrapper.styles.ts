@@ -3,9 +3,12 @@ import { colors } from '../../Theme'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.dolphin,
     padding: 16,
+    backgroundColor: colors.dolphin,
     borderRadius: 20
+  },
+  rightIcon: {
+    marginRight: 7
   }
 })
 

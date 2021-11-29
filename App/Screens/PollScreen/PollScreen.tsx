@@ -1,14 +1,36 @@
-import React from 'react'
-import { Pressable, View, Image, Text, FlatList } from 'react-native'
+import React, { useState } from 'react'
+import { Pressable, View, Image, Text } from 'react-native'
 import PollScreenStyles from './PollScreen.styles'
 import { useNavigation } from '@react-navigation/native'
 import { Separator, ListItemWrapper } from '../../Components'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../../Redux/Store'
+import { answerAndGetPollPercentages } from '../../Services/Apis/Apis'
+import { pollActions } from '../../Redux/Reducers/PollReducer'
+import { PollSection } from './Components'
 
-function PollScreen() {
+const PollScreen = () => {
+  const [isLoading, setIsloading] = useState<boolean>(false)
+  const [isError, setIsError] = useState<boolean>(false)
+  const [answersData, setAnswersData] = useState(null)
   const { goBack } = useNavigation()
   const { pollData } = useSelector((state: RootState) => state.poll)
+  const dispatch = useDispatch()
+
+  const handelAnswer = async (answer: string | null) => {
+    setIsloading(true)
+    setIsError(false)
+    try {
+      const data = await answerAndGetPollPercentages(answer)
+      if (data) {
+        setAnswersData(data)
+        dispatch(pollActions.setPollAnswers(data))
+      }
+    } catch (error) {
+      setIsError(true)
+    }
+    setIsloading(false)
+  }
 
   const handleOnClose = () => {
     goBack()
@@ -32,28 +54,25 @@ function PollScreen() {
     </>
   )
 
-  const PollSection = () => (
-    <>
-      {pollData?.answers_options?.map(({ slug, text }) => (
-        <Pressable key={slug}>
-          <ListItemWrapper styles={PollScreenStyles.PollItemWrapper}>
-            <Text style={PollScreenStyles.PollItemText}>{text}</Text>
-          </ListItemWrapper>
-          <Separator value={6} dir="column" />
-        </Pressable>
-      ))}
-    </>
-  )
-
   const ResoposeSection = () => (
     <View style={PollScreenStyles.responsesWrapper}>
-      <Text style={PollScreenStyles.responsesText}>1,234 responses</Text>
-      <Separator value={19} dir="column" />
-      <Text
-        style={[PollScreenStyles.responsesText, PollScreenStyles.noAnswerText]}
-      >
-        I don’t want to answer
+      <Text style={PollScreenStyles.responsesText}>
+        {`${(
+          answersData || pollData
+        )?.response_count?.toLocaleString()} responses`}
       </Text>
+      <Separator value={19} dir="column" />
+      {!answersData && (
+        <Text
+          style={[
+            PollScreenStyles.responsesText,
+            PollScreenStyles.noAnswerText
+          ]}
+          onPress={() => handelAnswer(null)}
+        >
+          I don’t want to answer
+        </Text>
+      )}
     </View>
   )
 
@@ -61,7 +80,12 @@ function PollScreen() {
     <View style={PollScreenStyles.container}>
       <HeaderSection />
       <Separator value={16} dir="column" />
-      <PollSection />
+      <PollSection
+        answersOptions={pollData?.answers_options}
+        answerStats={answersData?.answer_stats}
+        handelAnswer={handelAnswer}
+        totalAnswers={answersData?.response_count}
+      />
       <Separator value={10} dir="column" />
       <ResoposeSection />
     </View>

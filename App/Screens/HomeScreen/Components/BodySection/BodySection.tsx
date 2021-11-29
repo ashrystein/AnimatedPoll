@@ -37,6 +37,7 @@ const BodySection = () => {
       </Pressable>
     </View>
   )
+
   const renderItem = ({ item }) => (
     <>
       <ListItemWrapper>
