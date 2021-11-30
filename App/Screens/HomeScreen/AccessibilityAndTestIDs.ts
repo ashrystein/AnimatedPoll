@@ -4,6 +4,7 @@ const accessibilityLabels = {
   daily_poll: "Mojo's daily poll"
 }
 const testIDs = {
+  HomeScreen_header_container: 'HomeScreen_header_container',
   HomeScreen_mainText_wrapper: 'HomeScreen_mainText_wrapper',
   HomeScreen_daysCompleted: 'HomeScreen_daysCompleted',
   HomeScreen_tipsItem: 'HomeScreen_tipsItem',

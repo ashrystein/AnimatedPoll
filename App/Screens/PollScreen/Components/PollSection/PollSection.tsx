@@ -9,7 +9,7 @@ import { pollItemWidthRatio } from './Constants'
 
 type PollSectionProps = {
   answersOptions: { slug: string; text: string }[]
-  answerStats: []
+  answerStats: { [key: string]: number }
   handelAnswer: Function
   totalAnswers: number
 }

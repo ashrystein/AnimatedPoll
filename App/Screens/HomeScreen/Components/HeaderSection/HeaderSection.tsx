@@ -7,7 +7,10 @@ import { accessibilityLabels, testIDs } from '../../AccessibilityAndTestIDs'
 
 const HeaderSection = () => {
   return (
-    <View style={HeaderSectionStyles.container}>
+    <View
+      style={HeaderSectionStyles.container}
+      testID={testIDs.HomeScreen_header_container}
+    >
       <Separator dir="column" value={20} />
       <View style={HeaderSectionStyles.avatarWarapper}>
         <Image

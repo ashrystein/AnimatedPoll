@@ -5,10 +5,22 @@ import { colors } from '../../Theme'
 
 const LoadingIndicator = () => {
   return (
-    <View style={LoadingIndicatorStyles.container}>
+    <View
+      style={LoadingIndicatorStyles.container}
+      testID="LoadingIndicator_wrapper"
+    >
       <View style={LoadingIndicatorStyles.indecator}>
-        <ActivityIndicator size="large" color={colors.orca} />
-        <Text style={LoadingIndicatorStyles.loadingText}>Loading...</Text>
+        <ActivityIndicator
+          size="large"
+          color={colors.orca}
+          testID="LoadingIndicator_icon"
+        />
+        <Text
+          style={LoadingIndicatorStyles.loadingText}
+          testID="LoadingIndicator_text"
+        >
+          Loading...
+        </Text>
       </View>
     </View>
   )

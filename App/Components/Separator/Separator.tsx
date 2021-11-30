@@ -8,7 +8,10 @@ type SeparatorProps = {
 }
 
 const Separator = ({ dir, value }: SeparatorProps) => (
-  <View style={SeparatorStyles.separator(dir, value)} />
+  <View
+    style={SeparatorStyles.separator(dir, value)}
+    testID="Separator_wrapper"
+  />
 )
 
 Separator.defaultProps = {

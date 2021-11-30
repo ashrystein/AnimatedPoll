@@ -41,9 +41,14 @@ const ListItemWrapper = ({
             }
           : {}
       ]}
+      testID="ListItemWrapper_container"
     >
       {rightIcon && (
-        <Image source={rightIcon} style={ListItemWrapperStyles.rightIcon} />
+        <Image
+          source={rightIcon}
+          style={ListItemWrapperStyles.rightIcon}
+          testID="ListItemWrapper_right_image"
+        />
       )}
       {children}
     </Animated.View>

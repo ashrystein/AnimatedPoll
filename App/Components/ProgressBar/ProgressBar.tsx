@@ -10,8 +10,17 @@ type ProgressBarProps = {
 const ProgressBar = ({ total, filled }: ProgressBarProps) => {
   const filledPercentage = useMemo(() => filled / total, [total, filled])
   return (
-    <View style={[progressBarStyles.barStyle, progressBarStyles.totalView]}>
-      <View style={[progressBarStyles.barStyle, progressBarStyles.fillView(filledPercentage)]} />
+    <View
+      style={[progressBarStyles.barStyle, progressBarStyles.totalView]}
+      testID="ProgressBar_total_View"
+    >
+      <View
+        style={[
+          progressBarStyles.barStyle,
+          progressBarStyles.fillView(filledPercentage)
+        ]}
+        testID="Separator_filled_view"
+      />
     </View>
   )
 }
