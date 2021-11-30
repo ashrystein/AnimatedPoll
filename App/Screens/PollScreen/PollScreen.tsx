@@ -8,7 +8,11 @@ import type { RootState } from '../../Redux/Store'
 import { answerAndGetPollPercentages } from '../../Services/Apis/Apis'
 import { pollActions } from '../../Redux/Reducers/PollReducer'
 import { PollSection } from './Components'
-import { alertMessageWithAction } from '../../Utils/Helpers'
+import {
+  alertMessageWithAction,
+  accessibilityAndTestProps
+} from '../../Utils/Helpers'
+import { accessibilityLabels, testIDs } from './AccessibilityAndTestIDs'
 
 const PollScreen = () => {
   const [isLoading, setIsloading] = useState<boolean>(false)
@@ -44,6 +48,10 @@ const PollScreen = () => {
       <Pressable
         style={PollScreenStyles.closeIconWrapper}
         onPress={handleOnClose}
+        {...accessibilityAndTestProps(
+          `${testIDs.PollScreen_dailyQuestion}`,
+          'How often do you watch porn while masturbating?'
+        )}
       >
         <Image
           source={require('../../Assets/Icons/ic_close_black.png')}
@@ -57,27 +65,41 @@ const PollScreen = () => {
     </>
   )
 
-  const ResoposeSection = () => (
-    <View style={PollScreenStyles.responsesWrapper}>
-      <Text style={PollScreenStyles.responsesText}>
-        {`${(
-          answersData || pollData
-        )?.response_count?.toLocaleString()} responses`}
-      </Text>
-      <Separator value={19} dir="column" />
-      {!answersData && (
+  const ResoposeSection = () => {
+    const responses = `${(
+      answersData || pollData
+    )?.response_count?.toLocaleString()} responses`
+
+    return (
+      <View style={PollScreenStyles.responsesWrapper}>
         <Text
-          style={[
-            PollScreenStyles.responsesText,
-            PollScreenStyles.noAnswerText
-          ]}
-          onPress={() => handelAnswer(null)}
+          style={PollScreenStyles.responsesText}
+          {...accessibilityAndTestProps(
+            `${testIDs.PollScreen_responses}`,
+            responses
+          )}
         >
-          I don’t want to answer
+          {responses}
         </Text>
-      )}
-    </View>
-  )
+        <Separator value={19} dir="column" />
+        {!answersData && (
+          <Text
+            style={[
+              PollScreenStyles.responsesText,
+              PollScreenStyles.noAnswerText
+            ]}
+            onPress={() => handelAnswer(null)}
+            {...accessibilityAndTestProps(
+              `${testIDs.PollScreen_noAnswer}`,
+              accessibilityLabels.no_answer
+            )}
+          >
+            I don’t want to answer
+          </Text>
+        )}
+      </View>
+    )
+  }
 
   return (
     <View style={PollScreenStyles.container}>

@@ -3,6 +3,11 @@ import { Pressable, Text, View, Dimensions } from 'react-native'
 import { Separator, ListItemWrapper } from '../../../../Components'
 import PollSectionStyles from './PollSection.styles'
 import { colors } from '../../../../Theme'
+import {
+  alertMessageWithAction,
+  accessibilityAndTestProps
+} from '../../../../Utils/Helpers'
+import { accessibilityLabels, testIDs } from '../../AccessibilityAndTestIDs'
 
 const { width } = Dimensions.get('window')
 
@@ -36,7 +41,14 @@ const PollSection = ({
         )
         const isMyAnswer = answerStats && slug === myAnswer
         return (
-          <Pressable key={slug} onPress={() => handleOnPressAnswer(slug)}>
+          <Pressable
+            key={slug}
+            onPress={() => handleOnPressAnswer(slug)}
+            {...accessibilityAndTestProps(
+              `${testIDs.PollScreen_answerItem}${slug}`,
+              text
+            )}
+          >
             <View style={PollSectionStyles.pollAnswerWrapper(!!answerStats)}>
               <View
                 style={PollSectionStyles.percentageItemWrapper(!!answerStats)}
@@ -63,7 +75,13 @@ const PollSection = ({
                 </ListItemWrapper>
               </View>
               {answerStats && (
-                <View style={PollSectionStyles.percentageTextWrapper}>
+                <View
+                  style={PollSectionStyles.percentageTextWrapper}
+                  {...accessibilityAndTestProps(
+                    testIDs.PollScreen_answeredItem_percentage,
+                    `${percentage}`
+                  )}
+                >
                   <Text style={PollSectionStyles.percentageText}>
                     {percentage} %
                   </Text>

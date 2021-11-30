@@ -1,7 +1,7 @@
 import { Alert } from 'react-native'
 
-const accessibilityAndTestProps = (id: string) => {
-  return { testID: id, accessibilityLabel: id }
+const accessibilityAndTestProps = (id: string, label: string) => {
+  return { testID: id, accessibilityLabel: id, accessible: true }
 }
 
 const alertMessageWithAction = (

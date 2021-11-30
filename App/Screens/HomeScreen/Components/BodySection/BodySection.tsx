@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/native'
 import routes from '../../../../Navigation/Routes'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../../../Redux/Store'
+import { accessibilityLabels, testIDs } from '../../AccessibilityAndTestIDs'
+import { accessibilityAndTestProps } from '../../../../Utils/Helpers'
 
 const BodySection = () => {
   const [showNotice, setShowNotice] = useState<boolean>(false)
@@ -22,7 +24,13 @@ const BodySection = () => {
   }
 
   const Notice = () => (
-    <View style={BodySectionStyles.noticeWrapper}>
+    <View
+      style={BodySectionStyles.noticeWrapper}
+      {...accessibilityAndTestProps(
+        `${testIDs.HomeScreen_dailyPoll_wrapper}`,
+        accessibilityLabels.daily_poll
+      )}
+    >
       <Pressable onPress={handleOnNoticePress}>
         <Text style={BodySectionStyles.noticeText}>
           {`Mojo’s daily poll 📅  `}
@@ -39,7 +47,12 @@ const BodySection = () => {
   )
 
   const renderItem = ({ item }) => (
-    <>
+    <View
+      {...accessibilityAndTestProps(
+        `${testIDs.HomeScreen_tipsItem}`,
+        item.content
+      )}
+    >
       <ListItemWrapper>
         <Text style={BodySectionStyles.listItemTitleText}>{item.title}</Text>
         <Separator value={2.5} dir="column" />
@@ -48,7 +61,7 @@ const BodySection = () => {
         </Text>
       </ListItemWrapper>
       <Separator value={6} dir="column" />
-    </>
+    </View>
   )
 
   return (
