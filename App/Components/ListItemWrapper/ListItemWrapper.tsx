@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { ViewStyle, Image, ImageProps, Animated, Easing } from 'react-native'
+
 import ListItemWrapperStyles from './ListItemWrapper.styles'
 
 type ListItemWrapperProps = {

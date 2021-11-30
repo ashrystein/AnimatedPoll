@@ -1,13 +1,16 @@
 import React from 'react'
+
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { HomeScreen, PollScreen, blankScreen } from '../../App/Screens'
-import { colors } from '../Theme'
-import Icon5 from 'react-native-vector-icons/dist/FontAwesome5'
-import routes from './Routes'
 import { Provider } from 'react-redux'
+import Icon5 from 'react-native-vector-icons/dist/FontAwesome5'
+
+import { HomeScreen, PollScreen, blankScreen } from '../Screens'
+
+import { colors } from '../Theme'
 import store from '../Redux/Store'
+import routes from './Routes'
 
 const BottomTab = createBottomTabNavigator()
 const Stack = createStackNavigator()

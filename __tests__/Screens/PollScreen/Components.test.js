@@ -14,7 +14,7 @@ const props = {
 describe('Poll screen components', () => {
   const handelAnswer = jest.fn()
   it('should render PollSection befor answer successfully', () => {
-    const { getByTestId, getAllByTestId, queryByText } = render(
+    const { getByTestId, queryByText } = render(
       <PollSection {...props} handelAnswer={handelAnswer} />
     )
     expect(getByTestId(`${testIDs.PollScreen_answerItem}always`)).toBeTruthy()
@@ -26,7 +26,7 @@ describe('Poll screen components', () => {
   })
 
   it('should render PollSection answers percentages successfully', () => {
-    const { getByTestId, getAllByTestId, queryByText } = render(
+    const { getByTestId, getAllByTestId } = render(
       <PollSection
         {...props}
         handelAnswer={handelAnswer}

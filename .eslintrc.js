@@ -5,7 +5,8 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:react-hooks/recommended',
-    'plugin:import/typescript'
+    'plugin:import/typescript',
+    'plugin:@typescript-eslint/recommended'
   ],
   settings: {
     'import/ignore': ['react-native'],
@@ -27,31 +28,30 @@ module.exports = {
     'prefer-const': 2,
     'import/no-unresolved': 2,
     'react-hooks/exhaustive-deps': 'warn',
-    'import/order': [
-      2,
-      {
-        'newlines-between': 'always-and-inside-groups',
-        groups: ['builtin', 'external', 'index', 'parent', 'sibling'],
-        pathGroups: [
-          {
-            pattern: '../Themes',
-            group: 'sibling'
-          },
-          {
-            pattern: '../Themes/**',
-            group: 'sibling'
-          },
-          {
-            pattern: 'App/Themes',
-            group: 'sibling'
-          },
-          {
-            pattern: 'App/Themes/**',
-            group: 'sibling'
-          }
-        ]
-      }
-    ],
+    // 'import/order': [
+    //   2,
+    //   {
+    //     groups: ['builtin', 'external', 'index', 'parent', 'sibling'],
+    //     pathGroups: [
+    //       {
+    //         pattern: '../Themes',
+    //         group: 'sibling'
+    //       },
+    //       {
+    //         pattern: '../Themes/**',
+    //         group: 'sibling'
+    //       },
+    //       {
+    //         pattern: 'App/Themes',
+    //         group: 'sibling'
+    //       },
+    //       {
+    //         pattern: 'App/Themes/**',
+    //         group: 'sibling'
+    //       }
+    //     ]
+    //   }
+    // ],
     'import/named': 2,
     'import/default': 2,
     'import/no-dynamic-require': 2,

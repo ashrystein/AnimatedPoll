@@ -1,5 +1,6 @@
 import React, { useMemo, memo } from 'react'
 import { View } from 'react-native'
+
 import progressBarStyles from './ProgressBar.styles'
 
 type ProgressBarProps = {

@@ -1,24 +1,21 @@
 import React, { memo, useState, useEffect } from 'react'
 import { View, FlatList, Text, Pressable, Image } from 'react-native'
+
 import BodySectionStyles from './BodySection.styles'
+
 import { Separator, ListItemWrapper } from '../../../../Components'
+
 import TipsItems from './TipsItems.json'
 import { useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import routes from '../../../../Navigation/Routes'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../../../Redux/Store'
 import { accessibilityLabels, testIDs } from '../../AccessibilityAndTestIDs'
 import { accessibilityAndTestProps } from '../../../../Utils/Helpers'
 
-type paramList = {
-  PollScreen: undefined
-}
-
 const BodySection = () => {
   const [showNotice, setShowNotice] = useState<boolean>(false)
-  const { navigate } =
-    useNavigation<StackNavigationProp<paramList, 'PollScreen'>>()
+  const { navigate } = useNavigation()
   const { pollData } = useSelector((state: RootState) => state.poll)
 
   useEffect(() => {
@@ -26,7 +23,7 @@ const BodySection = () => {
   }, [pollData])
 
   const handleOnNoticePress = () => {
-    navigate(routes.PollScreen as 'PollScreen')
+    navigate(routes.PollScreen)
   }
 
   const Notice = () => (

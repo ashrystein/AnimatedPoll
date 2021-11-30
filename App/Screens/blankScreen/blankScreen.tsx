@@ -1,10 +1,7 @@
 import React from 'react'
 
- function blankScreen() {
-    return (
-        <></>
-    )
+function blankScreen() {
+  return <></>
 }
-
 
 export default blankScreen

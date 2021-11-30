@@ -111,7 +111,7 @@ const PollScreen = () => {
   return (
     <ScrollView
       nestedScrollEnabled={true}
-      contentContainerStyle={{ flexGrow: 1 }}
+      contentContainerStyle={PollScreenStyles.scroll}
       showsVerticalScrollIndicator={false}
     >
       <StatusBar barStyle="dark-content" />

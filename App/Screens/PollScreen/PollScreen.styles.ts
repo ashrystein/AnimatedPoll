@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native'
 import { colors, fonts } from '../../Theme'
+
 export default StyleSheet.create({
+  scroll: {
+    flexGrow: 1
+  },
   container: {
     flex: 1,
     paddingHorizontal: 16,

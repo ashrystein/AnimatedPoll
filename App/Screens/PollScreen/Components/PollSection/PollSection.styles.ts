@@ -1,6 +1,8 @@
 import { StyleSheet, Dimensions } from 'react-native'
+
 import { colors, fonts } from '../../../../Theme'
 import { pollItemWidthRatio, pollPercentageWidthRatio } from './Constants'
+
 const { width } = Dimensions.get('window')
 
 export default StyleSheet.create<any>({
