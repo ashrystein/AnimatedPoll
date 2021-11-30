@@ -29,7 +29,6 @@ export default StyleSheet.create<any>({
         }
       : {},
   pollPercentageItemWrapper: (percentage: number) => ({
-    width: width * 0.7 * (percentage / 100),
     backgroundColor: colors.selver(0.4)
   }),
   percentageTextWrapper: {

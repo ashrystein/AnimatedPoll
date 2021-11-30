@@ -1,8 +1,10 @@
 import React, { memo, useState } from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { Pressable, Text, View, Dimensions } from 'react-native'
 import { Separator, ListItemWrapper } from '../../../../Components'
 import PollSectionStyles from './PollSection.styles'
 import { colors } from '../../../../Theme'
+
+const { width } = Dimensions.get('window')
 
 type PollSectionProps = {
   answersOptions: { slug: string; text: string }[]
@@ -50,6 +52,9 @@ const PollSection = ({
                   rightIcon={
                     isMyAnswer &&
                     require('../../../../Assets/Icons/ic_checked.png')
+                  }
+                  widthPercentage={
+                    answerStats ? width * 0.7 * (percentage / 100) : null
                   }
                 >
                   <Text style={PollSectionStyles.pollItemText(isMyAnswer)}>

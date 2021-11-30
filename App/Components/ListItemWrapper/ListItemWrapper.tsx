@@ -1,23 +1,50 @@
-import React from 'react'
-import { View, ViewStyle, Image, ImageProps } from 'react-native'
+import React, { useEffect, useRef } from 'react'
+import { ViewStyle, Image, ImageProps, Animated, Easing } from 'react-native'
 import ListItemWrapperStyles from './ListItemWrapper.styles'
 
 type ListItemWrapperProps = {
   children: React.ReactNode
   styles?: ViewStyle
   rightIcon?: ImageProps
+  widthPercentage?: number
 }
 
 const ListItemWrapper = ({
   children,
   styles,
-  rightIcon
+  rightIcon,
+  widthPercentage
 }: ListItemWrapperProps) => {
+  const animatedWidthValue = useRef(new Animated.Value(0)).current
+
+  const handleAnimation = () => {
+    Animated.timing(animatedWidthValue, {
+      toValue: widthPercentage,
+      easing: Easing.out(Easing.exp),
+      duration: 2000,
+      useNativeDriver: false
+    }).start()
+  }
+
+  useEffect(() => {
+    widthPercentage && handleAnimation()
+  }, [widthPercentage])
+
   return (
-    <View style={[ListItemWrapperStyles.container, styles]}>
+    <Animated.View
+      style={[
+        ListItemWrapperStyles.container,
+        styles,
+        widthPercentage
+          ? {
+              width: animatedWidthValue
+            }
+          : {}
+      ]}
+    >
       <Image source={rightIcon} style={ListItemWrapperStyles.rightIcon} />
       {children}
-    </View>
+    </Animated.View>
   )
 }
 
