@@ -1,10 +1,11 @@
-import React, { memo, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Pressable, Text, View, useWindowDimensions } from 'react-native'
 import { Separator, ListItemWrapper } from '../../../../Components'
 import PollSectionStyles from './PollSection.styles'
 import { colors } from '../../../../Theme'
 import { accessibilityAndTestProps } from '../../../../Utils/Helpers'
 import { testIDs } from '../../AccessibilityAndTestIDs'
+import { pollItemWidthRatio } from './Constants'
 
 type PollSectionProps = {
   answersOptions: { slug: string; text: string }[]
@@ -21,6 +22,17 @@ const PollSection = ({
 }: PollSectionProps) => {
   const [myAnswer, setMyAnswer] = useState<string | null>('')
   const { width } = useWindowDimensions()
+
+  const getProperStyle = useCallback(
+    (percentage: number, isMyAnswer: boolean) => ({
+      ...PollSectionStyles.pollItemWrapper,
+      ...(answerStats
+        ? PollSectionStyles.pollPercentageItemWrapper(percentage)
+        : {}),
+      ...(isMyAnswer ? { backgroundColor: colors.selver(1) } : {})
+    }),
+    []
+  )
 
   const handleOnPressAnswer = (answer: string) => {
     if (!answerStats) {
@@ -53,18 +65,12 @@ const PollSection = ({
     <View style={PollSectionStyles.pollAnswerWrapper(!!answerStats)}>
       <View style={PollSectionStyles.percentageItemWrapper(!!answerStats)}>
         <ListItemWrapper
-          styles={{
-            ...PollSectionStyles.pollItemWrapper,
-            ...(answerStats
-              ? PollSectionStyles.pollPercentageItemWrapper(percentage)
-              : {}),
-            ...(isMyAnswer ? { backgroundColor: colors.selver(1) } : {})
-          }}
+          styles={getProperStyle(percentage, isMyAnswer)}
           rightIcon={
             isMyAnswer && require('../../../../Assets/Icons/ic_checked.png')
           }
           widthPercentage={
-            answerStats ? width * 0.7 * (percentage / 100) : null
+            answerStats ? width * pollItemWidthRatio * (percentage / 100) : null
           }
         >
           <Text style={PollSectionStyles.pollItemText(isMyAnswer)}>{text}</Text>
@@ -103,4 +109,4 @@ const PollSection = ({
   )
 }
 
-export default memo(PollSection)
+export default PollSection

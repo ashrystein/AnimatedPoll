@@ -8,7 +8,7 @@ import { accessibilityLabels, testIDs } from '../../AccessibilityAndTestIDs'
 const HeaderSection = () => {
   return (
     <View style={HeaderSectionStyles.container}>
-      <Separator dir="column" value={25} />
+      <Separator dir="column" value={20} />
       <View style={HeaderSectionStyles.avatarWarapper}>
         <Image
           source={require('../../../../Assets/Icons/ic_avatar.png')}

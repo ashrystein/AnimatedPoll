@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native'
 import { colors, fonts } from '../../../../Theme'
+import { pollItemWidthRatio, pollPercentageWidthRatio } from './Constants'
 const { width } = Dimensions.get('window')
 
 export default StyleSheet.create<any>({
@@ -32,7 +33,7 @@ export default StyleSheet.create<any>({
     backgroundColor: colors.selver(0.4)
   }),
   percentageTextWrapper: {
-    flex: width * 0.11,
+    flex: width * pollPercentageWidthRatio,
     marginLeft: 10
   },
   percentageText: {
@@ -44,7 +45,7 @@ export default StyleSheet.create<any>({
   percentageItemWrapper: (isAnswer: boolean) =>
     isAnswer
       ? {
-          flex: width * 0.7,
+          flex: width * pollItemWidthRatio,
           borderRadius: 99999
         }
       : {}
