@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { ScrollView } from 'react-native'
 import { HeaderSection, BodySection } from './Components'
 import { loadPollData } from '../../Services/Apis/Apis'
 import { useDispatch } from 'react-redux'
@@ -28,11 +29,15 @@ const HomeScreen = () => {
   }, [])
 
   return (
-    <>
+    <ScrollView
+      nestedScrollEnabled={true}
+      contentContainerStyle={{ flexGrow: 1 }}
+      showsVerticalScrollIndicator={false}
+    >
       <HeaderSection />
       <BodySection />
       {isLoading && <LoadingIndicator />}
-    </>
+    </ScrollView>
   )
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Pressable, View, Image, Text } from 'react-native'
+import { Pressable, View, Image, Text, ScrollView } from 'react-native'
 import PollScreenStyles from './PollScreen.styles'
 import { useNavigation } from '@react-navigation/native'
 import { Separator, LoadingIndicator } from '../../Components'
@@ -102,19 +102,25 @@ const PollScreen = () => {
   }
 
   return (
-    <View style={PollScreenStyles.container}>
-      <HeaderSection />
-      <Separator value={16} dir="column" />
-      <PollSection
-        answersOptions={pollData?.answers_options}
-        answerStats={answersData?.answer_stats}
-        handelAnswer={handelAnswer}
-        totalAnswers={answersData?.response_count}
-      />
-      <Separator value={10} dir="column" />
-      <ResoposeSection />
-      {isLoading && <LoadingIndicator />}
-    </View>
+    <ScrollView
+      nestedScrollEnabled={true}
+      contentContainerStyle={{ flexGrow: 1 }}
+      showsVerticalScrollIndicator={false}
+    >
+      <View style={PollScreenStyles.container}>
+        <HeaderSection />
+        <Separator value={16} dir="column" />
+        <PollSection
+          answersOptions={pollData?.answers_options}
+          answerStats={answersData?.answer_stats}
+          handelAnswer={handelAnswer}
+          totalAnswers={answersData?.response_count}
+        />
+        <Separator value={10} dir="column" />
+        <ResoposeSection />
+        {isLoading && <LoadingIndicator />}
+      </View>
+    </ScrollView>
   )
 }
 
