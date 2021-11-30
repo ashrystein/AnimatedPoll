@@ -4,15 +4,21 @@ import BodySectionStyles from './BodySection.styles'
 import { Separator, ListItemWrapper } from '../../../../Components'
 import TipsItems from './TipsItems.json'
 import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 import routes from '../../../../Navigation/Routes'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../../../Redux/Store'
 import { accessibilityLabels, testIDs } from '../../AccessibilityAndTestIDs'
 import { accessibilityAndTestProps } from '../../../../Utils/Helpers'
 
+type paramList = {
+  PollScreen: undefined
+}
+
 const BodySection = () => {
   const [showNotice, setShowNotice] = useState<boolean>(false)
-  const { navigate } = useNavigation()
+  const { navigate } =
+    useNavigation<StackNavigationProp<paramList, 'PollScreen'>>()
   const { pollData } = useSelector((state: RootState) => state.poll)
 
   useEffect(() => {
@@ -20,7 +26,7 @@ const BodySection = () => {
   }, [pollData])
 
   const handleOnNoticePress = () => {
-    navigate(routes.PollScreen)
+    navigate(routes.PollScreen as 'PollScreen')
   }
 
   const Notice = () => (
@@ -72,7 +78,7 @@ const BodySection = () => {
         data={TipsItems.data}
         renderItem={renderItem}
         keyExtractor={(item) => item.title}
-        style={BodySectionStyles.listWrapper}
+        style={BodySectionStyles.listWrapper(showNotice)}
         showsVerticalScrollIndicator={false}
       />
       {showNotice && <Notice />}

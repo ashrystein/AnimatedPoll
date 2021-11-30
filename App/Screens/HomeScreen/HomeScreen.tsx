@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView } from 'react-native'
+import { useWindowDimensions, FlatList } from 'react-native'
 import { HeaderSection, BodySection } from './Components'
 import { loadPollData } from '../../Services/Apis/Apis'
 import { useDispatch } from 'react-redux'
@@ -10,6 +10,7 @@ import { alertMessageWithAction } from '../../Utils/Helpers'
 const HomeScreen = () => {
   const [isLoading, setIsloading] = useState<boolean>(false)
   const dispatch = useDispatch()
+  const { width, height } = useWindowDimensions()
 
   const getPollData = async () => {
     setIsloading(true)
@@ -29,15 +30,25 @@ const HomeScreen = () => {
   }, [])
 
   return (
-    <ScrollView
-      nestedScrollEnabled={true}
-      contentContainerStyle={{ flexGrow: 1 }}
-      showsVerticalScrollIndicator={false}
-    >
-      <HeaderSection />
-      <BodySection />
+    <>
+      {width > height ? (
+        <>
+          <FlatList
+            data={[]}
+            renderItem={({ item }) => item}
+            ListHeaderComponent={<HeaderSection />}
+            ListFooterComponent={<BodySection />}
+            showsVerticalScrollIndicator={false}
+          />
+        </>
+      ) : (
+        <>
+          <HeaderSection />
+          <BodySection />
+        </>
+      )}
       {isLoading && <LoadingIndicator />}
-    </ScrollView>
+    </>
   )
 }
 

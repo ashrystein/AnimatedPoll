@@ -1,15 +1,10 @@
 import React, { memo, useState } from 'react'
-import { Pressable, Text, View, Dimensions } from 'react-native'
+import { Pressable, Text, View, useWindowDimensions } from 'react-native'
 import { Separator, ListItemWrapper } from '../../../../Components'
 import PollSectionStyles from './PollSection.styles'
 import { colors } from '../../../../Theme'
-import {
-  alertMessageWithAction,
-  accessibilityAndTestProps
-} from '../../../../Utils/Helpers'
-import { accessibilityLabels, testIDs } from '../../AccessibilityAndTestIDs'
-
-const { width } = Dimensions.get('window')
+import { accessibilityAndTestProps } from '../../../../Utils/Helpers'
+import { testIDs } from '../../AccessibilityAndTestIDs'
 
 type PollSectionProps = {
   answersOptions: { slug: string; text: string }[]
@@ -25,6 +20,7 @@ const PollSection = ({
   handelAnswer
 }: PollSectionProps) => {
   const [myAnswer, setMyAnswer] = useState<string | null>('')
+  const { width } = useWindowDimensions()
 
   const handleOnPressAnswer = (answer: string) => {
     if (!answerStats) {
@@ -32,6 +28,51 @@ const PollSection = ({
       setMyAnswer(answer)
     }
   }
+
+  const AnswerPercentage = ({ percentage }: { percentage: number }) => (
+    <View
+      style={PollSectionStyles.percentageTextWrapper}
+      {...accessibilityAndTestProps(
+        testIDs.PollScreen_answeredItem_percentage,
+        `${percentage}`
+      )}
+    >
+      <Text style={PollSectionStyles.percentageText}>{percentage} %</Text>
+    </View>
+  )
+
+  const RenderItemWithPercentage = ({
+    isMyAnswer,
+    percentage,
+    text
+  }: {
+    isMyAnswer: boolean
+    percentage: number
+    text: string
+  }) => (
+    <View style={PollSectionStyles.pollAnswerWrapper(!!answerStats)}>
+      <View style={PollSectionStyles.percentageItemWrapper(!!answerStats)}>
+        <ListItemWrapper
+          styles={{
+            ...PollSectionStyles.pollItemWrapper,
+            ...(answerStats
+              ? PollSectionStyles.pollPercentageItemWrapper(percentage)
+              : {}),
+            ...(isMyAnswer ? { backgroundColor: colors.selver(1) } : {})
+          }}
+          rightIcon={
+            isMyAnswer && require('../../../../Assets/Icons/ic_checked.png')
+          }
+          widthPercentage={
+            answerStats ? width * 0.7 * (percentage / 100) : null
+          }
+        >
+          <Text style={PollSectionStyles.pollItemText(isMyAnswer)}>{text}</Text>
+        </ListItemWrapper>
+      </View>
+      {answerStats && <AnswerPercentage percentage={percentage} />}
+    </View>
+  )
 
   return (
     <>
@@ -49,45 +90,11 @@ const PollSection = ({
               text
             )}
           >
-            <View style={PollSectionStyles.pollAnswerWrapper(!!answerStats)}>
-              <View
-                style={PollSectionStyles.percentageItemWrapper(!!answerStats)}
-              >
-                <ListItemWrapper
-                  styles={{
-                    ...PollSectionStyles.pollItemWrapper,
-                    ...(answerStats
-                      ? PollSectionStyles.pollPercentageItemWrapper(percentage)
-                      : {}),
-                    ...(isMyAnswer ? { backgroundColor: colors.selver(1) } : {})
-                  }}
-                  rightIcon={
-                    isMyAnswer &&
-                    require('../../../../Assets/Icons/ic_checked.png')
-                  }
-                  widthPercentage={
-                    answerStats ? width * 0.7 * (percentage / 100) : null
-                  }
-                >
-                  <Text style={PollSectionStyles.pollItemText(isMyAnswer)}>
-                    {text}
-                  </Text>
-                </ListItemWrapper>
-              </View>
-              {answerStats && (
-                <View
-                  style={PollSectionStyles.percentageTextWrapper}
-                  {...accessibilityAndTestProps(
-                    testIDs.PollScreen_answeredItem_percentage,
-                    `${percentage}`
-                  )}
-                >
-                  <Text style={PollSectionStyles.percentageText}>
-                    {percentage} %
-                  </Text>
-                </View>
-              )}
-            </View>
+            <RenderItemWithPercentage
+              isMyAnswer={isMyAnswer}
+              percentage={percentage}
+              text={text}
+            />
             <Separator value={6} dir="column" />
           </Pressable>
         )

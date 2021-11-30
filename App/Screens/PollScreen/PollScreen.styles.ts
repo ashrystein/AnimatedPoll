@@ -4,7 +4,8 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    backgroundColor: colors.white
+    backgroundColor: colors.white,
+    paddingBottom: 25
   },
   closeIconWrapper: {
     marginVertical: 14.5,
