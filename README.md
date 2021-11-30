@@ -3,9 +3,9 @@
 
 # Installation
 
-1 - Clone the repo
-2 - Open the terminal and navigate to the project root dir.
-3 - Run the following command
+- Clone the repo.
+- Open the terminal and navigate to the project root dir.
+- Run the following command.
 ```
 npm i
 ```
