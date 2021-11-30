@@ -8,10 +8,10 @@ import type { RootState } from '../../Redux/Store'
 import { answerAndGetPollPercentages } from '../../Services/Apis/Apis'
 import { pollActions } from '../../Redux/Reducers/PollReducer'
 import { PollSection } from './Components'
+import { alertMessageWithAction } from '../../Utils/Helpers'
 
 const PollScreen = () => {
   const [isLoading, setIsloading] = useState<boolean>(false)
-  const [isError, setIsError] = useState<boolean>(false)
   const [answersData, setAnswersData] = useState(null)
   const { goBack } = useNavigation()
   const { pollData } = useSelector((state: RootState) => state.poll)
@@ -19,7 +19,6 @@ const PollScreen = () => {
 
   const handelAnswer = async (answer: string | null) => {
     setIsloading(true)
-    setIsError(false)
     try {
       const data = await answerAndGetPollPercentages(answer)
       if (data) {
@@ -27,7 +26,11 @@ const PollScreen = () => {
         dispatch(pollActions.setPollAnswers(data))
       }
     } catch (error) {
-      setIsError(true)
+      alertMessageWithAction(
+        'Faild to answer the poll',
+        'Please try again',
+        () => handelAnswer(answer)
+      )
     }
     setIsloading(false)
   }
