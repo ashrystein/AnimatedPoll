@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useWindowDimensions, FlatList } from 'react-native'
+import { useWindowDimensions, FlatList, StatusBar } from 'react-native'
 import { HeaderSection, BodySection } from './Components'
 import { loadPollData } from '../../Services/Apis/Apis'
 import { useDispatch } from 'react-redux'
@@ -31,6 +31,7 @@ const HomeScreen = () => {
 
   return (
     <>
+      <StatusBar barStyle="light-content" />
       {width > height ? (
         <>
           <FlatList

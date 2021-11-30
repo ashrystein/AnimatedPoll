@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
-import { Pressable, View, Image, Text, ScrollView } from 'react-native'
+import {
+  Pressable,
+  View,
+  Image,
+  Text,
+  ScrollView,
+  StatusBar
+} from 'react-native'
 import PollScreenStyles from './PollScreen.styles'
 import { useNavigation } from '@react-navigation/native'
 import { Separator, LoadingIndicator } from '../../Components'
@@ -107,6 +114,7 @@ const PollScreen = () => {
       contentContainerStyle={{ flexGrow: 1 }}
       showsVerticalScrollIndicator={false}
     >
+      <StatusBar barStyle="dark-content" />
       <View style={PollScreenStyles.container}>
         <HeaderSection />
         <Separator value={16} dir="column" />
