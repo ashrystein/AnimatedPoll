@@ -21,10 +21,10 @@ const PollSection = ({
 }: PollSectionProps) => {
   const [myAnswer, setMyAnswer] = useState<string | null>('')
 
-  const handleOnPressAnswer = (slug: string) => {
+  const handleOnPressAnswer = (answer: string) => {
     if (!answerStats) {
-      handelAnswer(slug)
-      setMyAnswer(slug)
+      handelAnswer(answer)
+      setMyAnswer(answer)
     }
   }
 

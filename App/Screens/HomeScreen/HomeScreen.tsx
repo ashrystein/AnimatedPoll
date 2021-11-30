@@ -4,6 +4,7 @@ import { loadPollData } from '../../Services/Apis/Apis'
 import { useFetch } from '../../Hooks'
 import { useDispatch } from 'react-redux'
 import { pollActions } from '../../Redux/Reducers/PollReducer'
+import { LoadingIndicator } from '../../Components'
 
 const HomeScreen = () => {
   const [isLoading, isError, data] = useFetch(loadPollData)
@@ -17,6 +18,7 @@ const HomeScreen = () => {
     <>
       <HeaderSection />
       <BodySection />
+      {isLoading && <LoadingIndicator />}
     </>
   )
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Pressable, View, Image, Text } from 'react-native'
 import PollScreenStyles from './PollScreen.styles'
 import { useNavigation } from '@react-navigation/native'
-import { Separator, ListItemWrapper } from '../../Components'
+import { Separator, LoadingIndicator } from '../../Components'
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../../Redux/Store'
 import { answerAndGetPollPercentages } from '../../Services/Apis/Apis'
@@ -88,6 +88,7 @@ const PollScreen = () => {
       />
       <Separator value={10} dir="column" />
       <ResoposeSection />
+      {isLoading && <LoadingIndicator />}
     </View>
   )
 }
