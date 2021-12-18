@@ -1,6 +1,3 @@
-# MojoTest
-
-
 # Installation
 
 - Clone the repo.
